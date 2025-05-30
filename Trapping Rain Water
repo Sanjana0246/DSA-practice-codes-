@@ -1,0 +1,39 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+    if (n <= 1) {
+        cout << 0;
+        return 0;
+    }
+
+    vector<int> a(n);
+    vector<int> lmx(n), rmx(n);
+    int sum = 0;
+    for (int i = 0; i < n; i++) {
+        cin >> a[i];
+    }
+    lmx[0] = a[0];
+    for (int i = 1; i < n; i++) {
+        lmx[i] = max(a[i], lmx[i - 1]);
+    }
+    rmx[n - 1] = a[n - 1];
+    for (int i = n - 2; i >= 0; i--) {
+        rmx[i] = max(a[i], rmx[i + 1]);
+    }
+    for (int i = 0; i < n; i++) {
+        sum += min(lmx[i], rmx[i]) - a[i];
+    }
+
+    cout << sum;
+    return 0;
+}
